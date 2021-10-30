@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {Fragment} from 'react';
+import Menu from "./Menu";
 
 const Body = () => {
     return (
-        <div>
-            
-        </div>
+        <Fragment>
+            <Menu />
+        </Fragment>
     );
 };
 
