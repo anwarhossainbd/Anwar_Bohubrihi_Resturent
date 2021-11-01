@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Component, Fragment} from 'react';
 import {
     Collapse,
     DropdownItem,
@@ -8,25 +8,62 @@ import {
     NavbarText,
     NavbarToggler,
     NavItem,
-    NavLink, UncontrolledDropdown
+     UncontrolledDropdown
 } from "reactstrap";
+import {Link, NavLink} from "react-router-dom";
 
-const Navigation = () => {
-    return (
-        <Fragment>
+class Navigation extends Component {
 
-            <Navbar color="dark" expand="md" dark >
-                <div className="ml-5">
-                    <NavbarBrand href="/">
+    constructor() {
+        super();
+        this.state={
+            isNavOpen:false
+        }
+    }
+
+    navToggle =()=>{
+        this.setState({
+            isNavOpen: !this.state.isNavOpen
+        })
+    }
+
+    render() {
+
+        return (
+            <Fragment>
+
+                <Navbar color="dark" expand="md" dark>
+                    <NavbarBrand href="/" className="mr-5 ml-5">
                         Resturent
                     </NavbarBrand>
-                </div>
-            </Navbar>
+                    <NavbarToggler onClick={ this.navToggle}  />
+                    <Collapse navbar isOpen={this.state.isNavOpen}>
+                        <Nav className="me-auto" navbar>
+                            <NavItem>
+                                <Link to="/" className="nav-link active">Home</Link>
+                            </NavItem>
+                            <NavItem>
+                                <Link to="/menu" className="nav-link">Menu</Link>
+                            </NavItem>
+
+                            <NavItem>
+                                <Link to="/about" className="nav-link">About</Link>
+                            </NavItem>
+
+                            <NavItem>
+                                <Link to="/contact" className="nav-link">Contact</Link>
+                            </NavItem>
+
+                        </Nav>
+
+                    </Collapse>
+                </Navbar>
 
 
-            
-        </Fragment>
-    );
+            </Fragment>
+        );
+    };
+
 };
 
 export default Navigation;
