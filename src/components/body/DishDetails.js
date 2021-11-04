@@ -3,6 +3,8 @@ import {Card, CardBody, CardImg, CardText, CardTitle} from "reactstrap";
 import LoadComments from "./LoadComments";
 
 const DishDetails = (props) => {
+
+
     return (
         <Fragment>
             <Card style={{marginTop:"10px"}}>
@@ -21,7 +23,7 @@ const DishDetails = (props) => {
 
 
                     <hr />
-                    <LoadComments comments={props.dish.comments} />
+                    <LoadComments comments={props.comments} />
                 </CardBody>
             </Card>
             

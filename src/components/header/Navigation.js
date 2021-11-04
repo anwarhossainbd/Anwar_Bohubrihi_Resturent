@@ -34,7 +34,7 @@ class Navigation extends Component {
 
                 <Navbar color="dark" expand="md" dark>
                     <NavbarBrand href="/" className="mr-5 ml-5">
-                        Resturent
+                        Restaurant
                     </NavbarBrand>
                     <NavbarToggler onClick={ this.navToggle}  />
                     <Collapse navbar isOpen={this.state.isNavOpen}>
