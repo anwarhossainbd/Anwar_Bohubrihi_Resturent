@@ -1,6 +1,7 @@
 import React, {Fragment} from 'react';
 import {Card, CardBody, CardImg, CardText, CardTitle} from "reactstrap";
 import LoadComments from "./LoadComments";
+import CommentForm from "./CommentForm";
 
 const DishDetails = (props) => {
 
@@ -24,6 +25,8 @@ const DishDetails = (props) => {
 
                     <hr />
                     <LoadComments comments={props.comments} />
+                    <hr />
+                    <CommentForm dishId={props.dish.id} addComment={props.addComment} />
                 </CardBody>
             </Card>
             

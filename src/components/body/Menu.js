@@ -11,6 +11,24 @@ const mapStateToProps=(state)=>{
     }
 }
 
+
+const mapDispatchToProps=(dispatch)=>{
+    return{
+        addComment:(dishId,author,rating,comment)=>dispatch({
+
+            type:"ADD_COMMENT",
+            payload:{
+                dishId:dishId,
+                author: author,
+                rating: rating,
+                comment: comment
+            }
+        })
+    }
+}
+
+
+
 class Menu extends Component {
     constructor() {
         super();
@@ -52,7 +70,7 @@ class Menu extends Component {
             const comments =this.props.comments.filter(comment=>{
                 return comment.dishId === this.state.selecteDish.id
             })
-            dishDetails = <DishDetails dish={this.state.selecteDish} comments={comments}/>
+            dishDetails = <DishDetails dish={this.state.selecteDish} addComment={this.props.addComment} comments={comments}/>
         }
 
 
@@ -63,12 +81,12 @@ class Menu extends Component {
                        <CardColumns>
                            {menu}
                        </CardColumns>
-                        <Modal size="md" isOpen={this.state.modalOpen} onClick={this.toggleModel}>
+                        <Modal size="md" isOpen={this.state.modalOpen} >
                             <ModalBody>
                                 {dishDetails}
                             </ModalBody>
                             <ModalFooter>
-                                <Button color="secondary">
+                                <Button color="secondary" onClick={this.toggleModel}>
                                     Close
                                 </Button>
                             </ModalFooter>
@@ -81,4 +99,4 @@ class Menu extends Component {
     }
 }
 
-export default connect(mapStateToProps)(Menu);
+export default connect(mapStateToProps,mapDispatchToProps)(Menu);
