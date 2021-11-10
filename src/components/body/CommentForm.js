@@ -24,7 +24,8 @@ class CommentForm extends Component {
     handleSubmit=(event)=>{
 
         event.preventDefault();
-        this.props.addComment(this.props.dishId,this.state.author,this.state.rating,this.state.comment)
+        this.props.addComment(this.props.dishId,this.state.author,this.state.rating,this.state.comment);
+
         this.setState({
             author:"",
             rating:"",

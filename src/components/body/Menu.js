@@ -3,6 +3,9 @@ import {connect} from "react-redux";
 import MenuItem from "./MenuItem";
 import DishDetails from "./DishDetails";
 import {Button, CardColumns, Modal, ModalBody, ModalFooter} from "reactstrap";
+import * as actionTypes from '../../redux/actionType'
+import {addComment,fetchDishes} from "../../redux/actionCreators";
+import Loading from "./Loading";
 
 const mapStateToProps=(state)=>{
     return{
@@ -14,16 +17,10 @@ const mapStateToProps=(state)=>{
 
 const mapDispatchToProps=(dispatch)=>{
     return{
-        addComment:(dishId,author,rating,comment)=>dispatch({
-
-            type:"ADD_COMMENT",
-            payload:{
-                dishId:dishId,
-                author: author,
-                rating: rating,
-                comment: comment
-            }
-        })
+        addComment:(dishId,author,rating,comment)=>dispatch(
+            addComment(dishId,author,rating,comment)
+        ),
+        fetchDishes:()=>dispatch(fetchDishes())
     }
 }
 
@@ -52,50 +49,62 @@ class Menu extends Component {
         })
     }
 
+    componentDidMount() {
+        this.props.fetchDishes()
+    }
+
 
     render() {
 
-        document.title="Menu"
+        document.title = "Menu"
 
-
-        const dish =this.props.dishes ;
-        const menu =dish.map(item=>{
-            return(
-                <MenuItem dish={item} onDishSelect={this.onDishSelect.bind(item)} key={item.id}/>
+        if (this.props.dishes.isLoading) {
+            return (
+                <Loading/>
             )
-        })
+        } else {
 
-        let dishDetails = null
-        if (this.state.selecteDish !=null){
-            const comments =this.props.comments.filter(comment=>{
-                return comment.dishId === this.state.selecteDish.id
+
+            const dish = this.props.dishes.dishes;
+            const menu = dish.map(item => {
+                return (
+                    <MenuItem dish={item} onDishSelect={this.onDishSelect.bind(item)} key={item.id}/>
+                )
             })
-            dishDetails = <DishDetails dish={this.state.selecteDish} addComment={this.props.addComment} comments={comments}/>
-        }
+
+            let dishDetails = null
+            if (this.state.selecteDish != null) {
+                const comments = this.props.comments.filter(comment => {
+                    return comment.dishId === this.state.selecteDish.id
+                })
+                dishDetails =
+                    <DishDetails dish={this.state.selecteDish} addComment={this.props.addComment} comments={comments}/>
+            }
 
 
-        return (
-            <Fragment>
-                <div className="container">
-                    <div className="row">
-                       <CardColumns>
-                           {menu}
-                       </CardColumns>
-                        <Modal size="md" isOpen={this.state.modalOpen} >
-                            <ModalBody>
-                                {dishDetails}
-                            </ModalBody>
-                            <ModalFooter>
-                                <Button color="secondary" onClick={this.toggleModel}>
-                                    Close
-                                </Button>
-                            </ModalFooter>
-                        </Modal>
+            return (
+                <Fragment>
+                    <div className="container">
+                        <div className="row">
+                            <CardColumns>
+                                {menu}
+                            </CardColumns>
+                            <Modal size="md" isOpen={this.state.modalOpen}>
+                                <ModalBody>
+                                    {dishDetails}
+                                </ModalBody>
+                                <ModalFooter>
+                                    <Button color="secondary" onClick={this.toggleModel}>
+                                        Close
+                                    </Button>
+                                </ModalFooter>
+                            </Modal>
+                        </div>
                     </div>
-                </div>
 
-            </Fragment>
-        );
+                </Fragment>
+            );
+        }
     }
 }
 
