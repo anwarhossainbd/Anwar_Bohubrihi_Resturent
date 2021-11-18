@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {Col, Input, Label, From, FormGroup, Form, Button} from "reactstrap";
-
+import { Control, LocalForm, Errors } from 'react-redux-form';
 class Contact extends Component {
 
     constructor() {
@@ -58,25 +58,25 @@ class Contact extends Component {
                             <h3>Send us your Feedback</h3>
                         </div>
                         <div className="col-12 col-md-7">
-                            <Form onSubmit={this.handleSubmit}>
+                            <LocalForm onSubmit={this.handleSubmit}>
                                 <FormGroup row>
                                     <Label htmlFor="firstname" md={2}>First Name</Label>
                                     <Col md={10}>
-                                        <Input type="text" name="firstname" onChange={this.handleInputChange} placeholder="First Name" value={this.state.firstname} />
+                                        <Control.text model=".firstname"  name="firstname"  placeholder="First Name" className="form-control" />
                                     </Col>
                                 </FormGroup>
 
                                 <FormGroup row>
                                     <Label htmlFor="lastname" md={2}>Last Name</Label>
                                     <Col md={10}>
-                                        <Input type="text" name="lastname" onChange={this.handleInputChange} placeholder="Last Name" value={this.state.lastname} />
+                                        <Control.text model=".lastname"  name="lastname"  placeholder="Last Name" className="form-control" />
                                     </Col>
                                 </FormGroup>
 
                                 <FormGroup row>
                                     <Label htmlFor="telnum" md={2}>Contact No.</Label>
                                     <Col md={10}>
-                                        <Input type="tel" name="telnum" onChange={this.handleInputChange} placeholder="Phone Number " value={this.state.telnum} />
+                                        <Control.text model=".telnum" name="telnum"  placeholder="Phone Number " className="form-control" />
                                     </Col>
                                 </FormGroup>
 
@@ -84,7 +84,7 @@ class Contact extends Component {
                                 <FormGroup row>
                                     <Label htmlFor="email" md={2}>Email</Label>
                                     <Col md={10}>
-                                        <Input type="email" onChange={this.handleInputChange} name="email" placeholder="Email" value={this.state.email} />
+                                        <Control.text model=".email"   name="email" placeholder="Email" className="form-control" />
                                     </Col>
                                 </FormGroup>
 
@@ -93,22 +93,22 @@ class Contact extends Component {
                                     <Col md={{size:5,offset:1}}>
                                         <FormGroup check>
                                             <Label check>
-                                                <Input type="checkbox" onChange={this.handleInputChange} name="agree" checked={this.state.agree} /> <strong>May we contact you?</strong>
+                                                <Control.checkbox model=".agree"  name="agree" className="form-check-input"  /> <strong>May we contact you?</strong>
                                             </Label>
                                         </FormGroup>
                                     </Col>
                                     <Col md={{size:3,offset:1}}>
-                                        <Input type="select" name="contactType" onChange={this.handleInputChange}  value={this.state.contactType}>
+                                        <Control.select model=".contactType" name="contactType" className="form-control" >
                                         <option>Tel.</option>
                                         <option>Email</option>
-                                        </Input>
+                                        </Control.select>
                                     </Col>
                                 </FormGroup>
 
                                 <FormGroup row>
                                     <Label htmlFor="message" md={2}>Your Feedback</Label>
                                     <Col md={10}>
-                                        <Input type="textarea" name="message" onChange={this.handleInputChange} placeholder="Write Your Message" value={this.state.message} rows="12"></Input>
+                                        <Control.textarea model=".message" name="message"  placeholder="Write Your Message" className="form-control"  rows="12"></Control.textarea>
                                     </Col>
                                 </FormGroup>
 
@@ -123,7 +123,7 @@ class Contact extends Component {
 
 
 
-                            </Form>
+                            </LocalForm>
                         </div>
                     </div>
                 </div>
