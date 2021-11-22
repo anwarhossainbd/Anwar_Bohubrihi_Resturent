@@ -1,5 +1,7 @@
 import * as actionTypes from "./actionType";
 import DISHES from "../data/dishes";
+import COMMENTS from "../data/Comments";
+
 
 export const addComment=(dishId,author,rating,comment)=>({
 
@@ -28,7 +30,32 @@ export const fetchDishes=()=>{
         setTimeout(()=>{
             dispatch(loadDishes(DISHES))
         },2000)
-
-
     }
 }
+
+
+  export const loadComments=comments=>({
+      type:actionTypes.LOAD_COMMENTS,
+      payload:comments
+  })
+
+  export const commentLoading=()=>({
+      type:actionTypes.COMMENTS_LOADING,
+  })
+
+  export const fetchComments=()=>{
+      return dispatch=>{
+          dispatch(commentLoading());
+
+          setTimeout(()=>{
+              dispatch(loadComments(COMMENTS))
+          },4500)
+      }
+  }
+
+
+
+
+
+
+
