@@ -32,7 +32,10 @@ class Navigation extends Component {
         return (
             <Fragment>
 
-                <Navbar color="dark" expand="md" dark>
+                <Navbar   style={{
+                    backgroundColor: "#D70F64",
+                    height: "70px",
+                }}  expand="md" dark>
                     <NavbarBrand href="/" className="mr-5 ml-5">
                         Restaurant
                     </NavbarBrand>
